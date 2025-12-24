@@ -1,26 +1,28 @@
-// const express=require("express");
-// const mongoose=require("mongoose");
-// const app=express();
-// app.get("/",(req,res) =>{   
-//     res.send("server started");
-// });
-// app.listen(7000,async()=>
-//     {
-//     console.log("server is working");
+const express = require("express");
+const connectToDB = require("./configs/db");
+const taskRoute = require("./routes/tasksRoutes");
 
-//     await mongoose.connect("mongodb+srv://db_user:triveni19@cluster.xsouczt.mongodb.net/triveni");
-//     console.log(mongoose.connection.name);
-// });
+const app = express();
 
-const express=require("express");
-const mongoose=require("mongoose");
-const app=express();
-app.get("/",(req,res)=>{
-    res.send("server started");
+app.use(express.json());
+app.use("/api/task", taskRoute);
+
+app.get("/", (req, res) => {
+  res.send("Server is Started");
 });
-app.listen(7000,async()=>{
-    console.log("server is working");
 
-    await mongoose.connect("mongodb+srv://db_user:triveni19@cluster.xsouczt.mongodb.net/triveni");
-    console.log(mongoose.connection.name);
-})
+app.listen(7000, async () => {
+  console.log("Server is working");
+
+  // connect to DB
+  connectToDB();
+});
+
+
+
+// title- String
+// dec - String
+// endDate - Date
+// isPrimary - bool
+// createdAt
+// updatedAt
